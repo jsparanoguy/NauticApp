@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "232135406842",
+    "firebase_url": "https://nauticapp-b4512.firebaseio.com",
+    "project_id": "nauticapp-b4512",
+    "storage_bucket": "nauticapp-b4512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232135406842:android:00e72c7196926d68",
+        "android_client_info": {
+          "package_name": "com.nauticapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232135406842-nep5akqcapplnhp52po2me4a187rmlqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYNT4YYecIPyL6Zcp3nfLE4tNoQji_2d4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

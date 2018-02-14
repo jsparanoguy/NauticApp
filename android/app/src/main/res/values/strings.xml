@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NauticApp</string>
+<string name="facebook_app_id">151603618878634</string>
+<string name="fb_login_protocol_scheme">fb151603618878634</string>
+</resources>
