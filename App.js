@@ -5,13 +5,22 @@
  */
 
 import React, { Component } from 'react';
-
+import * as firebase from "firebase";
 import {
   Platform,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDYMR5mJnwLg4gDWJh4TLrhjcPP-2ScnyU",
+  authDomain: "nauticapp-b4512.firebaseapp.com",
+  databaseURL: "https://nauticapp-b4512.firebaseio.com",
+  storageBucket: "nauticapp-b4512.appspot.com"
+});
+
 
 
 
@@ -38,25 +47,52 @@ type Props = {};
 
 export default class App extends Component<Props> {
 
+  constructor() {
+    super();
 
-  initUser(token) {
-    fetch('https://graph.facebook.com/v2.5/me?fields=email,name&access_token=' + token)
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      // Some user object has been set up somewhere, build that user here
-      user.name = json.name
-      user.id = json.id
-      user.email = json.email
-      user.username = json.name
-      user.loading = false
-      user.loggedIn = true
-      user.avatar = setAvatar(json.id)      
-    })
+    this.state = {
+      user: null
+    }
+  }
+
+
+
+
+
+  initUser = async (token) => {
+    const response = await fetch('https://graph.facebook.com/v2.5/me?fields=email,name&access_token=' + token)
+    const user = await response.json()
+
+     this.setState({ user }, () => {
+      // ca marche console.log(this.state.user)
+     this.postData()
+    });
+
+  //  this.setState({ user })
 
   }
 
+  postData = () => {
+
+    console.log(this.state.user)
+
+    var postData = {
+      name: this.state.user.name,
+      facebookId: this.state.user.id,
+
+    };
+    var newPostKey = firebase.database().ref().child('users').push().key;
+    var updates = {};
+    updates['/users/' + newPostKey] = postData;
+
+    firebase.database().ref().update(updates);
+  }
+
+
+
+
   render() {
+
 
     return (
       <View style={styles.container}>
@@ -64,25 +100,27 @@ export default class App extends Component<Props> {
           Welcome to React Native!
         </Text>
         <View>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                AccessToken.getCurrentAccessToken().then((data) => {
-                  const { accessToken } = data
-                  this.initUser(accessToken)
-                })
+          <LoginButton
+            publishPermissions={["publish_actions"]}
+
+            onLoginFinished={
+              (error, result) => {
+                if (error) {
+                  alert("Login failed with error: " + result.error);
+                } else if (result.isCancelled) {
+                  alert("Login was cancelled");
+                } else {
+                  AccessToken.getCurrentAccessToken().then((data) => {
+                    const { accessToken } = data
+                   
+                    this.initUser(accessToken)
+                    
+                  })
+                }
               }
             }
-          }
-          onLogoutFinished={() => alert("User logged out")}/>
-      </View>
+            onLogoutFinished={() => alert("User logged out")} />
+        </View>
         <Text style={styles.instructions}>
           To get started, edit App.js
         </Text>
