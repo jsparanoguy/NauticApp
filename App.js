@@ -53,6 +53,8 @@ export default class App extends Component<Props> {
     this.state = {
       user: null
     }
+
+    //  this.itemsRef = this.getRef().child('users');
   }
 
 
@@ -63,28 +65,46 @@ export default class App extends Component<Props> {
     const response = await fetch('https://graph.facebook.com/v2.5/me?fields=email,name&access_token=' + token)
     const user = await response.json()
 
-     this.setState({ user }, () => {
-      // ca marche console.log(this.state.user)
-     this.postData()
+    this.setState({ user }, () => {
+
+      this.getData()
+
     });
-
-  //  this.setState({ user })
-
   }
 
+
+  getData = () => {
+    var userList = []
+    var recentPostsRef = firebase.database().ref('/users');
+
+    recentPostsRef.once('value').then(snapshot => {
+      userList = snapshot.val()
+
+      if (userList === null) {
+        this.postData()
+      } else {
+        const exist = Object.keys(userList).filter(user => user.facebookId === this.state.user.facebookId)
+        if (exist.length > 0) {
+          // ne rien faire
+        } else {
+          this.postData() // si l'utilisateur n'existe pas en base, on appel la méthode d'insert     
+        }
+      }
+    })
+  }
+
+
+
   postData = () => {
-
-    console.log(this.state.user)
-
     var postData = {
       name: this.state.user.name,
       facebookId: this.state.user.id,
-
     };
     var newPostKey = firebase.database().ref().child('users').push().key;
     var updates = {};
-    updates['/users/' + newPostKey] = postData;
 
+
+    updates['/users/' + newPostKey] = postData;
     firebase.database().ref().update(updates);
   }
 
@@ -92,8 +112,6 @@ export default class App extends Component<Props> {
 
 
   render() {
-
-
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -112,9 +130,7 @@ export default class App extends Component<Props> {
                 } else {
                   AccessToken.getCurrentAccessToken().then((data) => {
                     const { accessToken } = data
-                   
                     this.initUser(accessToken)
-                    
                   })
                 }
               }
