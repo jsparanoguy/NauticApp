@@ -18,7 +18,9 @@
       android:theme="@style/AppTheme">
       <meta-data android:name="com.facebook.sdk.ApplicationId" 
         android:value="@string/facebook_app_id"/>
-    
+      <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="AIzaSyAuewzRtUN8vSlZ3aXC5kOYADpj-f5Fos0"/>
     <activity android:name="com.facebook.FacebookActivity"
         android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
