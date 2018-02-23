@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator,  NavigationAction } from 'react-navigation';
 
 
 import Home from './screens/home';
@@ -22,6 +22,7 @@ const RootStack = StackNavigator(
 );
 export default class Stack extends React.Component {
     render() {
+
         return <RootStack />
     }
 }

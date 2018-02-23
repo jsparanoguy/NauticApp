@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { StackNavigator, NavigationAction } from 'react-navigation';
 const FBSDK = require('react-native-fbsdk');
 
 const {
@@ -100,12 +100,13 @@ export default class Login extends React.Component {
                                 const { accessToken } = data
                                 this.initUser(accessToken)
                                 this.setState({logged: true})
+                                this.props.nav.navigate('Home')
                             })
                             
                         }
                     }
                 }
-                onLogoutFinished={() =>this.setState({logged: false})} />
+                onLogoutFinished={() => this.props.nav.navigate('Home')} />
 
 
         )

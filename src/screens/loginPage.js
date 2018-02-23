@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {  Platform,  StyleSheet,  Text,  View, Button} from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, Image, ImageBackground } from 'react-native';
 import Login from '../login';
+import { StackNavigator, NavigationAction } from 'react-navigation';
 const FBSDK = require('react-native-fbsdk');
 
 const {
@@ -11,8 +12,7 @@ const {
 
 
 
-
-export default class LoginPage extends React.Component{
+export default class LoginPage extends React.Component {
 
 
   constructor(props) {
@@ -26,24 +26,39 @@ export default class LoginPage extends React.Component{
   }
 
 
-  componentDidMount(){
-      console.log(this.state.logged)
+  componentDidMount() {
+
+    //console.log(this.props)
   }
 
 
-render(){
+  render() {
 
-    return(
-        <View>
-           <Login/>
-           <Button
-           title='Home' 
-           onPress={()=> this.props.navigation.navigate('Home')}/>
-            </View>
+    return (
+      <View>
+      
+        <ImageBackground
+          source={require('../pics/home.jpg')}
+          style={{ width: '100%', height: '100%' }}
+        >
+        <View style={styles.logButton}>
+       <Login nav={this.props.navigation}  />
+       </View>
+</ImageBackground>
+       
+      </View>
     )
-}
+  }
 
 }
 
 
+const styles = StyleSheet.create({
 
+
+  logButton: {
+    marginTop: '60%',
+    marginLeft: '25%',
+    
+  }
+});
