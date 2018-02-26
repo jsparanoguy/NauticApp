@@ -1,17 +1,21 @@
 NauticApp Native
 
-Configuration : 
+Contributions :
 
-git clone https://github.com/MisterL33/NauticApp.git
+Forker le repo
 
 npm install
 
-Ouvrir avec Android Studio le fichier build.gradle situé dans le dossier android
+creation d'une branche avec suffixe FEAT/FIX/BUG etc...
 
-Une fois le build fini, cliquez sur l'icone AVD Manager et créer si besoin une machine virtuelle marshmellow (android 6.0, API 23)
+Ouvrir avec Android Studio le fichier build.gradle situï¿½ dans le dossier android
+
+Une fois le build fini, cliquez sur l'icone AVD Manager et crï¿½er si besoin une machine virtuelle marshmellow (android 6.0, API 23)
 
 Lancez la machine virtuelle
 
-Nous pouvons maintenant lancer l'application via : react-native run-android à la racine du dossier
+Nous pouvons maintenant lancer l'application via : react-native run-android ï¿½ la racine du dossier
 
 Ouvrir menu DEV : ctrl + M(sur l'application)
+
+Une fois les changement appliquÃ© faire une PULL REQUEST sur https://github.com/MisterL33/NauticApp
